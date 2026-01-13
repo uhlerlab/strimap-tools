@@ -2,7 +2,7 @@
 
 **strimap-tools** is a package for analysis of peptide-HLA presentation and TCR specificity. It is designed to help researchers understand the interactions between T cell receptors (TCRs) and peptides presented by human leukocyte antigen (HLA) molecules, which play a crucial role in the immune response. 
 
-To facilitate use by biologists and help bridge the gap between the machine-learning and immunology communities, we developed an accessible web portal [www.strimap.com](www.strimap.com) that enables users to run predictions and train models on their own data.
+To facilitate use by biologists and help bridge the gap between the machine-learning and immunology communities, we developed an accessible web portal [www.strimap.com](https://www.strimap.com) that enables users to run predictions and train models on their own data.
 
 If you prefer to run the package locally, please follow the instructions below to install **strimap-tools**.
 ## Installation
