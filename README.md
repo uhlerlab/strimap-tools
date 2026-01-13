@@ -38,5 +38,30 @@ This notebook demonstrates how to:
 
 ## Train and predict TCR-pHLA specificity with StriMap
 
+A complete, reproducible workflow for **training and prediction of TCR–pHLA specificity**
+(including data loading, HLA normalization, embedding preparation, cross-validation training,
+and inference/evaluation on new data) is provided in:
+
+📓 **[tcrphla_predictor.ipynb](tcrphla_predictor.ipynb)**
+
+This notebook demonstrates how to:
+- Train a TCR–pHLA specificity predictor using cross-validation
+- Load trained checkpoints and perform prediction/inference on new TCR–pHLA pairs
+
+**Expected input (CSV format):**
+
+| Column Name | Description | Example | Note |
+|------------|------------|---------|------|
+| `cdr3a` | Alpha chain CDR3 sequence | `CARRGAAGNKLTF` | Required |
+| `cdr3b` | Beta chain CDR3 sequence | `CASSPSAGDYEQYF` | Required |
+| `Va` | Alpha variable gene | `TRAV24*01` | Required |
+| `Ja` | Alpha joining gene | `TRAJ17*01` | Required |
+| `Vb` | Beta variable gene | `TRBV4-3*01` | Required |
+| `Jb` | Beta joining gene | `TRBJ2-7*01` | Required |
+| `peptide` | Target peptide sequence | `LLWNGPMAV` | Required |
+| `HLA` | Target HLA allele | `HLA-A*02:01` | Required |
+| `label` | TCR–pHLA binding label (`0` or `1`) | `1` | Required only for training/validation |
+
+
 ## Citation
 If you use **strimap-tools** in your research, please cite the following paper:
