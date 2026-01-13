@@ -22,8 +22,8 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-from utils import *
-from dataset import *
+from strimap.utils import *
+from strimap.dataset import *
 
 class EarlyStopping:
     def __init__(self, patience=10, verbose=True, delta=0.0, save_path='checkpoint.pt'):
