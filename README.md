@@ -21,8 +21,7 @@ pip install -r requirements.txt
 ## Usage
 ## Train and predict peptide–HLA presentation with StriMap
 
-A complete, reproducible workflow for **training and prediction** (including data loading, HLA normalization,
-embedding preparation, 5-fold cross-validation training, and inference/evaluation on new data) is provided in:
+A complete, reproducible workflow for **training and prediction** is provided in:
 
 📓 **[phla_predictor.ipynb](phla_predictor.ipynb)**
 
@@ -30,9 +29,14 @@ This notebook demonstrates how to:
 - Train a peptide–HLA (pHLA) presentation predictor with **5-fold cross-validation**
 - Load a trained checkpoint and run **prediction/inference** (and optional evaluation if labels are available)
 
-**Expected input:**
-- CSV file with columns: `peptide`, `HLA`, `label`  
-  - `label` is optional for inference-only prediction (required for evaluation metrics)
+**Expected input (CSV format):**
+- `peptide`: peptide amino acid sequence (e.g., `GILGFVFTL`)
+- `HLA`: HLA allele (e.g., `HLA-A*02:01`)
+- `label`: binary label indicating presentation status, optional for inference-only prediction (required for evaluation metrics)
+  - `1` = presented (positive)  
+  - `0` = not presented (negative)
+
+## Train and predict TCR-pHLA specificity with StriMap
 
 ## Citation
 If you use **strimap-tools** in your research, please cite the following paper:
