@@ -19,7 +19,11 @@ pip install -r requirements.txt
 ```
 
 ## Usage
-## Train and predict peptide–HLA presentation with StriMap
+
+### Training data and pre-trained models
+Pre-trained models and training data can be found at: [zenodo](https://doi.org/10.5281/zenodo.18002170)
+
+### Train and predict peptide–HLA presentation with StriMap
 
 A complete, reproducible workflow for **training and prediction** is provided in:
 
@@ -37,17 +41,18 @@ This notebook demonstrates how to:
 | `HLA` | HLA allele | `HLA-A*02:01` | Required |
 | `label` | Peptide–HLA presentation label (`0` or `1`) | `1` | Required for training/evaluation |
 
-## Train and predict TCR-pHLA specificity with StriMap
+### Train and predict TCR-pHLA specificity with StriMap
 
-A complete, reproducible workflow for **training and prediction of TCR–pHLA specificity**
-(including data loading, HLA normalization, embedding preparation, cross-validation training,
-and inference/evaluation on new data) is provided in:
+A complete, reproducible workflow for **training and prediction of TCR–pHLA specificity** is provided in:
 
 📓 **[tcrphla_predictor.ipynb](tcrphla_predictor.ipynb)**
 
 This notebook demonstrates how to:
 - Train a TCR–pHLA specificity predictor using cross-validation
 - Load trained checkpoints and perform prediction/inference on new TCR–pHLA pairs
+
+> ⚠️ **Warning**
+> The TCR–pHLA predictor is built upon a pre-trained pHLA presentation model. You must provide a trained pHLA model checkpoint or load one of our pretrained models **before training the TCR–pHLA specificity model**.
 
 **Expected input (CSV format):**
 
@@ -62,7 +67,6 @@ This notebook demonstrates how to:
 | `peptide` | Target peptide sequence | `LLWNGPMAV` | Required |
 | `HLA` | Target HLA allele | `HLA-A*02:01` | Required |
 | `label` | TCR–pHLA binding label (`0` or `1`) | `1` | Required only for training/validation |
-
 
 ## Citation
 If you use **strimap-tools** in your research, please cite the following paper:
