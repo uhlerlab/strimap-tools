@@ -1,6 +1,5 @@
 altair
 pandas
-streamlit
 numpy
 torch
 scikit-learn

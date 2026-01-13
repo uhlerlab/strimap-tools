@@ -10,14 +10,13 @@ conda activate strimap-env
 ```
 Download the source code from GitHub and install the package along with its dependencies.
 ```bash
-git clone https://github.com/uhlerlab/strimap-tools-uhlerlab.git
-cd strimap-tools-uhlerlab
+git clone https://github.com/uhlerlab/strimap-tools.git
+cd strimap-tools
 pip install -r requirements.txt
-pip install .
 ```
 
 ## Tutorials
-For step-by-step guides on how to use **trimap-tools**, including training HLA/peptide encoders and predicting TCR specificity, please refer to the [Documentation](https://trimap-tools.readthedocs.io/) section.
+For step-by-step guides on how to use **strimap-tools**, including training HLA/peptide encoders and predicting TCR specificity, please refer to the [Documentation](https://strimap-tools.readthedocs.io/) section.
 
 To predict TCR specificity for pHLA complexes, follow these steps:
 
