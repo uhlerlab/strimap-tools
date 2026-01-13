@@ -21,7 +21,8 @@ pip install -r requirements.txt
 ## Usage
 ### Train a pHLA Predictor (5-fold Cross-validation)
 
-**Input CSV:** `train_set.csv`
+**Input CSV:** 
+- `train_set.csv`
 
 **Required columns:**
 - `peptide`: peptide amino acid sequence  
@@ -33,46 +34,44 @@ from main import StriMap_pHLA, load_train_data
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-# Load full dataset (already contains both positive and negative samples)
-df_train = pd.read_csv("train_set.csv")
+# Load data
+df = pd.read_csv("train_set.csv")
 
-# Create 5 folds (each fold is a train/val split)
+# 5-fold train/val splits
 num_fold = 5
-df_train_folds, df_val_folds = [], []
-for i in range(num_fold):
-    df_train_fold, df_val_fold = train_test_split(
-        df_train,
-        test_size=0.1,
-        random_state=i,
-        stratify=df_train["label"],
+train_folds, val_folds = zip(*[
+    train_test_split(
+        df, test_size=0.1, random_state=i, stratify=df["label"]
     )
-    df_train_folds.append(df_train_fold.reset_index(drop=True))
-    df_val_folds.append(df_val_fold.reset_index(drop=True))
+    for i in range(num_fold)
+])
 
-# Standardize HLA fields and map alleles
-df_train_folds, df_val_folds = load_train_data(
-    df_train_list=df_train_folds,
-    df_val_list=df_val_folds,
+train_folds = [d.reset_index(drop=True) for d in train_folds]
+val_folds   = [d.reset_index(drop=True) for d in val_folds]
+
+# HLA full sequence mapping
+train_folds, val_folds = load_train_data(
+    df_train_list=list(train_folds),
+    df_val_list=list(val_folds),
     hla_dict_path="HLA_dict.npy",
 )
 
-# Combine all folds for embedding preparation (recommended)
-df_all = pd.concat([*df_train_folds, *df_val_folds], axis=0).reset_index(drop=True)
-
-# Initialize StriMap
+# Initialize StriMap pHLA model
 strimap = StriMap_pHLA(
-    device="cuda:0",  # or "cpu"
-    model_save_path="model_params/phla/best_model.pt",
-    cache_dir="phla_cache",
-    cache_save=False,
+    device="cuda:0",
+    model_save_path="params/phla/best_model.pt",
+    cache_dir="cache/phla",
 )
 
-# Prepare embeddings (run once; subsequent runs are faster if cached)
-strimap.prepare_embeddings(df_all, force_recompute=False)
+# Prepare embeddings (cached for faster training)
+strimap.prepare_embeddings(
+    pd.concat([*train_folds, *val_folds], ignore_index=True), 
+    force_recompute=False,
+)
 
 # K-fold training
 all_history = strimap.train_kfold(
-    train_folds=[(df_train, df_val) for df_train, df_val in zip(df_train_folds, df_val_folds)],
+    train_folds=list(zip(train_folds, val_folds)),
     epochs=100,
     num_workers=4,
 )
@@ -89,6 +88,8 @@ import pandas as pd
 # Load test data
 df_test = pd.read_csv("test.csv")
 
+df_test['label'] = 0  # Dummy label column for compatibility
+
 # Standardize HLA fields and map alleles
 df_test = load_test_data(
     df_test=df_test,
@@ -98,12 +99,15 @@ df_test = load_test_data(
 # Initialize StriMap with a trained checkpoint
 strimap = StriMap_pHLA(
     device="cuda:0",  # or "cpu"
-    model_save_path=f"model_params/phla/best_model.pt",
-    cache_dir="phla_cache",
+    model_save_path=f"params/phla/best_model.pt", # Path to trained model
+    cache_dir="cache/phla", # Cache directory for embeddings
 )
 
 # Prepare embeddings (cached for faster inference)
-strimap.prepare_embeddings(df_test, force_recompute=False,)
+strimap.prepare_embeddings(
+    df_test,
+    force_recompute=False,
+)
 
 # Run prediction / evaluation
 y_prob_test, _ = strimap.predict(
