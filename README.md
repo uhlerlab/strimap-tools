@@ -116,6 +116,7 @@ y_prob_test, _ = strimap.predict(
     num_folds=5,
 )
 df_test["predicted_probability"] = y_prob_test
+```
 
 ## Citation
 If you use **strimap-tools** in your research, please cite the following paper:
