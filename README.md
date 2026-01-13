@@ -6,7 +6,7 @@ To facilitate use by biologists and help bridge the gap between the machine-lear
 
 If you prefer to run the package locally, please follow the instructions below to install **strimap-tools**.
 ## Installation
-Create a conda environment. **strimap-tools** requires **Python 3.9** or later.
+Create a conda environment. **strimap-tools** requires **Python 3.9**.
 ```bash
 conda create -n strimap-env python=3.9
 conda activate strimap-env
