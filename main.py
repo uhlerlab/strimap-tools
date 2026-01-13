@@ -39,7 +39,7 @@ class StriMap_pHLA:
     def __init__(
         self,
         device: str = 'cuda:0',
-        model_save_path: str = 'model_params/best_model_phla.pt',
+        model_save_path: str = 'params/phla_model.pt',
         pep_dim: int = 256,
         hla_dim: int = 256,
         bilinear_dim: int = 256,
@@ -888,7 +888,7 @@ class StriMap_TCRpHLA:
         pep_hla_system = None,   # already-initialized and pretrained
         pep_hla_params: Optional[list] = None,
         device: str = 'cuda:0',
-        model_save_path: str = 'best_model_tcrpHLA.pt',
+        model_save_path: str = 'params/tcrphla_model.pt',
         tcr_dim: int = 256,
         pep_dim: int = 256,
         hla_dim: int = 256,
@@ -924,6 +924,8 @@ class StriMap_TCRpHLA:
         '''
         self.device = torch.device(device if torch.cuda.is_available() else 'cpu')
         self.model_save_path = model_save_path
+        if not os.path.exists(os.path.dirname(model_save_path)) and os.path.dirname(model_save_path) != '':
+            os.makedirs(os.path.dirname(model_save_path), exist_ok=True)
         self.seed = seed
         self.alpha = alpha
         self.gamma = gamma
