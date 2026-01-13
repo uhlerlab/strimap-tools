@@ -17,9 +17,9 @@ from tqdm import tqdm
 
 from sklearn.metrics import confusion_matrix, roc_auc_score, average_precision_score
 
-from strimap.physicochemical import PhysicochemicalEncoder
+from physicochemical import PhysicochemicalEncoder
 
-from strimap.model import (
+from model import (
     negative_sampling_phla,
     ESM2Encoder,
     ESMFoldEncoder,

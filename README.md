@@ -1,34 +1,19 @@
-
-<p align="left">
-  <img src="docs/source/_static/logo.png" alt="logo" width="280"/>
-</p>
-
-
-[![PyPI version](https://img.shields.io/pypi/v/trimap-tools)](https://pypi.org/project/trimap-tools/)
-[![Downloads](https://static.pepy.tech/badge/trimap-tools)](https://pepy.tech/project/trimap-tools)
-[![Docs](https://img.shields.io/badge/docs-latest-blue)](https://trimap-tools.readthedocs.io/)
-
-# Discovering TCR-HLA-Epitope interactions with Deep Learning
-
-<p align="center">
-  <img src="docs/source/_static/diagram.png" alt="applications" width="1200"/>
-</p>
+# StriMap: Discovering TCR-HLA-Epitope interactions with Deep Learning
 
 **trimap-tools** is a package for analysis of peptide-HLA presentation and TCR specificity. It is designed to help researchers understand the interactions between T cell receptors (TCRs) and peptides presented by human leukocyte antigen (HLA) molecules, which play a crucial role in the immune response. 
 
 ## Installation
 Create a conda environment. **trimap-tools** requires **Python 3.9** or later.
 ```bash
-conda create -n trimap-env python=3.9
-conda activate trimap-env
+conda create -n strimap-env python=3.9
+conda activate strimap-env
 ```
-It is available on PyPI and can be installed using pip:
+Download the source code from GitHub and install the package along with its dependencies.
 ```bash
-pip install trimap-tools
-```
-or by cloning the repository and installing it manually:
-```bash
-pip install git+https://github.com/uhlerlab/trimap-tools.git@main
+git clone https://github.com/uhlerlab/strimap-tools-uhlerlab.git
+cd strimap-tools-uhlerlab
+pip install -r requirements.txt
+pip install .
 ```
 
 ## Tutorials
