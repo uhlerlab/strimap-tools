@@ -552,8 +552,11 @@ class ESMFoldEncoder(nn.Module):
         def get_or_create_dict(chain):
             base_dir = os.path.dirname(os.path.abspath(__file__)) + "/" + self.cache_dir
             os.makedirs(base_dir, exist_ok=True)
+            
             path_feat = os.path.join(base_dir, f"{chain}_feat_dict.pt")
             path_coords = os.path.join(base_dir, f"{chain}_coord_dict.pt")
+            
+            failures = []
             
             if os.path.exists(path_feat) and not re_embed:
                 logger.info(f"Loading {path_feat} and {path_coords}")
@@ -571,9 +574,8 @@ class ESMFoldEncoder(nn.Module):
                 self.save_obj(coord_dict, path_coords)
                 logger.info(f"Saved {path_feat} and {path_coords}")
 
-                if failures:
-                    for seq, err in failures:
-                        logger.error(f"[create] failed: {seq} | {err}")
+                for seq, err in failures:
+                    logger.error(f"[create] failed: {seq} | {err}")
 
             return feat_dict, coord_dict
 
