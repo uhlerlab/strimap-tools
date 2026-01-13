@@ -474,3 +474,48 @@ def negative_sampling_phla(df, neg_ratio=5, label_col='label', neg_label=0, rand
     return negative_samples
 
 
+# ==============================
+# Data Preprocessing
+# ==============================
+import os
+def preprocess_input_data(df_input):
+    df = df_input.copy()
+    hla_dict_path = 'HLA_dict.npy' 
+    if not os.path.exists(hla_dict_path):
+        print(f"❌ HLA dictionary file not found at {hla_dict_path}. Please ensure the file exists.")
+        return None
+    hla_dict = np.load(hla_dict_path, allow_pickle=True).item()
+
+    if 'Peptide' in df.columns: df.rename(columns={'Peptide': 'peptide'}, inplace=True)
+    
+    try:
+        cdr3a_col = 'cdr3a'
+        cdr3b_col = 'cdr3b'
+        
+        for col in ['Va', 'Ja', 'Vb', 'Jb']:
+            if col in df.columns:
+                df[col] = df[col].apply(lambda x: x + '*01' if '*' not in str(x) else x)
+
+        if 'tcra' not in df.columns:
+            df['tcra'] = determine_tcr_seq_vj(df[cdr3a_col].tolist(), df['Va'].tolist(), df['Ja'].tolist(), chain='A')
+        if 'tcrb' not in df.columns:
+            df['tcrb'] = determine_tcr_seq_vj(df[cdr3b_col].tolist(), df['Vb'].tolist(), df['Jb'].tolist(), chain='B')
+            
+        df['cdr3a_start'] = df.apply(lambda row: row['tcra'].find(row['cdr3a']), axis=1)
+        df['cdr3a_end'] = df['cdr3a_start'] + df['cdr3a'].str.len()
+        df['cdr3b_start'] = df.apply(lambda row: row['tcrb'].find(row['cdr3b']), axis=1)
+        df['cdr3b_end'] = df['cdr3b_start'] + df['cdr3b'].str.len()
+            
+    except Exception as e:
+        print(f"❌ Error reconstructing TCR sequences: {e}")
+        return None
+
+    try:
+        df['HLA_clean'] = df['HLA'].apply(lambda x: x[4:] if str(x).startswith('HLA-') else x)
+        df['HLA_full'] = df['HLA_clean'].apply(lambda x: hla_dict.get(x, x)) 
+    except KeyError as e:
+        print(f"❌ HLA processing error: {e}")
+        return None
+
+    if 'label' not in df.columns: df['label'] = 0
+    return df
