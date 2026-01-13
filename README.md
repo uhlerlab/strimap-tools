@@ -23,7 +23,7 @@ pip install -r requirements.txt
 
 A complete, reproducible workflow for **training and prediction** is provided in:
 
-📓 **[phla_predictor.ipynb](jupyter/phla_predictor.ipynb)**
+📓 **[phla_predictor.ipynb](phla_predictor.ipynb)**
 
 This notebook demonstrates how to:
 - Train a peptide–HLA (pHLA) presentation predictor with **5-fold cross-validation**
@@ -43,7 +43,7 @@ A complete, reproducible workflow for **training and prediction of TCR–pHLA sp
 (including data loading, HLA normalization, embedding preparation, cross-validation training,
 and inference/evaluation on new data) is provided in:
 
-📓 **[tcrphla_predictor.ipynb](jupyter/tcrphla_predictor.ipynb)**
+📓 **[tcrphla_predictor.ipynb](tcrphla_predictor.ipynb)**
 
 This notebook demonstrates how to:
 - Train a TCR–pHLA specificity predictor using cross-validation
