@@ -23,18 +23,19 @@ pip install -r requirements.txt
 
 A complete, reproducible workflow for **training and prediction** is provided in:
 
-📓 **[phla_predictor.ipynb](phla_predictor.ipynb)**
+📓 **[phla_predictor.ipynb](jupyterphla_predictor.ipynb)**
 
 This notebook demonstrates how to:
 - Train a peptide–HLA (pHLA) presentation predictor with **5-fold cross-validation**
 - Load a trained checkpoint and run **prediction/inference** (and optional evaluation if labels are available)
 
 **Expected input (CSV format):**
-- `peptide`: peptide amino acid sequence (e.g., `GILGFVFTL`)
-- `HLA`: HLA allele (e.g., `HLA-A*02:01`)
-- `label`: binary label indicating presentation status, optional for inference-only prediction (required for evaluation metrics)
-  - `1` = presented (positive)  
-  - `0` = not presented (negative)
+
+| Column  | Description | Example | Note |
+|------------|------------|---------|------|
+| `peptide` | Peptide amino acid sequence | `GILGFVFTL` | Required |
+| `HLA` | HLA allele | `HLA-A*02:01` | Required |
+| `label` | Peptide–HLA presentation label (`0` or `1`) | `1` | Required for training/evaluation |
 
 ## Train and predict TCR-pHLA specificity with StriMap
 
@@ -42,7 +43,7 @@ A complete, reproducible workflow for **training and prediction of TCR–pHLA sp
 (including data loading, HLA normalization, embedding preparation, cross-validation training,
 and inference/evaluation on new data) is provided in:
 
-📓 **[tcrphla_predictor.ipynb](tcrphla_predictor.ipynb)**
+📓 **[tcrphla_predictor.ipynb](jupyter/tcrphla_predictor.ipynb)**
 
 This notebook demonstrates how to:
 - Train a TCR–pHLA specificity predictor using cross-validation
@@ -50,7 +51,7 @@ This notebook demonstrates how to:
 
 **Expected input (CSV format):**
 
-| Column Name | Description | Example | Note |
+| Column | Description | Example | Note |
 |------------|------------|---------|------|
 | `cdr3a` | Alpha chain CDR3 sequence | `CARRGAAGNKLTF` | Required |
 | `cdr3b` | Beta chain CDR3 sequence | `CASSPSAGDYEQYF` | Required |
