@@ -4,6 +4,8 @@
 
 To facilitate use by biologists and help bridge the gap between the machine-learning and immunology communities, we developed an accessible web portal [**www.strimap.com**](https://www.strimap.com) that enables predictions and finetune models on your own data.
 
+![Figure description](source/fig.jpg)
+
 If you prefer to run the package locally, please follow the instructions below to install **strimap-tools**.
 ## Installation
 Create a conda environment. **strimap-tools** requires **Python 3.9**.
