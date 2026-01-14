@@ -41,7 +41,7 @@ This notebook demonstrates how to:
 |------------|------------|---------|------|
 | `peptide` | Peptide amino acid sequence | `GILGFVFTL` | Required |
 | `HLA` | HLA allele | `HLA-A*02:01` | Required |
-| `label` | Peptide–HLA presentation label (`0` or `1`) | `1` | Required for training/evaluation |
+| `label` | Peptide–HLA presentation label (`0` or `1`) | `1` | Required for train/val |
 
 ### Train and predict TCR-pHLA specificity with StriMap
 
@@ -68,7 +68,7 @@ This notebook demonstrates how to:
 | `Jb` | Beta joining gene | `TRBJ2-7*01` | Required |
 | `peptide` | Target peptide sequence | `LLWNGPMAV` | Required |
 | `HLA` | Target HLA allele | `HLA-A*02:01` | Required |
-| `label` | TCR–pHLA binding label (`0` or `1`) | `1` | Required only for training/validation |
+| `label` | TCR–pHLA binding label (`0` or `1`) | `1` | Required for train/val |
 
 ## Citation
 If you use **strimap-tools** in your research, please cite the following paper:
